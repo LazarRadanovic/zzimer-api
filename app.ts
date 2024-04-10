@@ -4,6 +4,7 @@ import cors from "cors";
 import estatesRouting from "./routing/estates-routing";
 import userRouting from "./routing/user-routing";
 import eventRouting from "./routing/event-routing";
+import messagesRouting from "./routing/messages-routing";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(estatesRouting.esatesRouters);
 app.use(userRouting.routingUser);
 app.use(eventRouting.eventRouters);
+app.use(messagesRouting.messagesRoutes);
 
 app.listen(3000, "127.0.0.1", () => {
   console.log("Server is listening at port 3000");

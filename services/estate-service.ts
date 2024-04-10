@@ -62,7 +62,6 @@ const getEstateById = async (id: number) => {
 
 const getEstateByLocation = async (town: string) => {
   const data = await repository.getEstateByLocation(town);
-  // console.log(data);
   const result: any[] = [];
 
   data.forEach((element: any) => {

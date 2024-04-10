@@ -24,13 +24,11 @@ const getUserById = async (req: Request, res: Response) => {
 const checkLoggedUserLike = async (req: Request, res: Response) => {
   const userId: number = parseInt(req.query.userId as string);
   const estateId: number = parseInt(req.query.estateId as string);
-  console.log(userId, estateId);
   res.send(await userService.checkLoggedUserLike(userId, estateId));
 };
 const dislikeEstate = async (req: Request, res: Response) => {
   const userId: number = parseInt(req.query.userId as string);
   const estateId: number = parseInt(req.query.estateId as string);
-  console.log(userId, estateId);
   res.send(await userService.dislikeEstate(userId, estateId));
 };
 
@@ -68,8 +66,6 @@ const roomateRequest = async (req: Request, res: Response) => {
   res.send(await userService.roomateRequest(req.body));
 };
 const currentRoomate = async (req: Request, res: Response) => {
-  console.log(req.body.loggedUserId);
-
   res.send(await userService.currentRoomate(req.body.loggedUserId));
 };
 const getRoommateRequests = async (req: Request, res: Response) => {

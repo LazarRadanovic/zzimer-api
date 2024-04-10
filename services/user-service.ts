@@ -69,7 +69,6 @@ const userLikes = async (idEstate: number) => {
       gmail: row.gmail,
     };
   });
-  // console.log(formattedData);
 
   return formattedData;
 };
@@ -88,8 +87,6 @@ const getUserById = async (userId: number) => {
       lokacija: row.lokacija_cimera,
     };
   });
-  console.log(formattedData[0]);
-
   return formattedData[0];
 };
 
