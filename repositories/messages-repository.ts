@@ -59,9 +59,32 @@ const getConversationById = async (conversationId: number) => {
     return { success: false };
   }
 };
+const sendMessage = async (
+  sender_id: number,
+  receiver_id: number,
+  content: string,
+  status: string,
+  conversation_id: number
+) => {
+  try {
+    const result = await dbConnection.dbConnection.query(
+      `INSERT INTO messages(id,sender_id,receiver_id,content,timestamp,status,conversation_id) VALUES
+      (DEFAULT,?,?,?,now(),?,?)`,
+      [sender_id, receiver_id, content, status, conversation_id]
+    );
+    if (result.affectedRows > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+};
 
 export default {
   getAllConversations,
   createConversation,
   getConversationById,
+  sendMessage,
 };

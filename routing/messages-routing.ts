@@ -11,7 +11,9 @@ messagesRoutes
   .route("/conversations")
   .post(messagesController.createConversation);
 
-messagesRoutes.route("/messages").post(messagesController.getConversationById);
+messagesRoutes.route("/send-message").post(messagesController.sendMessage);
+
+messagesRoutes.route("/messages").get(messagesController.getConversationById);
 export default {
   messagesRoutes,
 };

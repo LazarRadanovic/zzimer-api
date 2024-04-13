@@ -92,6 +92,16 @@ const changePassword = async (req: Request, res: Response) => {
 const editUser = async (req: Request, res: Response) => {
   res.send(await userService.editUser(req.body));
 };
+
+const getAllUsers = async (req: Request, res: Response) => {
+  const adminId = parseInt(req.query.id as string);
+  res.send(await userService.getAllUsers(adminId));
+};
+
+const deleteUser = async (req: Request, res: Response) => {
+  res.send(await userService.deleteUser(parseInt(req.params["id"])));
+};
+
 export default {
   registerUser,
   loginUser,
@@ -113,4 +123,6 @@ export default {
   declineRoommateRequest,
   changePassword,
   editUser,
+  getAllUsers,
+  deleteUser,
 };

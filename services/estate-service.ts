@@ -96,9 +96,15 @@ const getAllTowns = async () => {
   return townData;
 };
 
+const deleteEstate = async (id: number) => {
+  const data = await estateRepository.deleteEstate(id);
+  return data;
+};
+
 export default {
   getAllEstates,
   getEstateById,
   getEstateByLocation,
   getAllTowns,
+  deleteEstate,
 };

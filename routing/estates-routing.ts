@@ -12,4 +12,6 @@ esatesRouters
   .route("/estates/location/:town")
   .get(estateController.getEstateByLocation);
 
+esatesRouters.route("/delete-esate/:id").delete(estateController.deleteEstate);
+
 export default { esatesRouters };

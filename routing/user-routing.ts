@@ -46,6 +46,8 @@ routingUser
   .get(userController.getStatusOfFriendship);
 routingUser.route("/get-friend-requests").get(userController.getFriendRequsts);
 routingUser.route("/update-password").post(userController.changePassword);
+routingUser.route("/users").get(userController.getAllUsers);
+routingUser.route("/delete-user/:id").delete(userController.deleteUser);
 export default {
   routingUser,
 };

@@ -16,9 +16,13 @@ const getEstateByLocation = async (req: Request, res: Response) => {
 const getAllTowns = async (req: Request, res: Response) => {
   res.send(await estateService.getAllTowns());
 };
+const deleteEstate = async (req: Request, res: Response) => {
+  res.send(await estateService.deleteEstate(parseInt(req.params["id"])));
+};
 export default {
   getAllEstates,
   getEstateById,
   getEstateByLocation,
   getAllTowns,
+  deleteEstate,
 };

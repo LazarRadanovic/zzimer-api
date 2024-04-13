@@ -57,9 +57,26 @@ const getAllTowns = async () => {
   }
 };
 
+const deleteEstate = async (id: number) => {
+  try {
+    const result = await dbConnection.dbConnection.query(
+      `DELETE FROM estates WHERE id=?`,
+      [id]
+    );
+    if (result.affectedRows > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+};
+
 export default {
   getAllEstates,
   getEstateById,
   getEstateByLocation,
   getAllTowns,
+  deleteEstate,
 };

@@ -18,7 +18,24 @@ const createConversation = async (req: Request, res: Response) => {
 const getConversationById = async (req: Request, res: Response) => {
   res.send(
     await messagesService.getConversationById(
-      parseInt(req.body.conversationId as string)
+      parseInt(req.query.conversationId as string)
+    )
+  );
+};
+
+const sendMessage = async (req: Request, res: Response) => {
+  const sender_id = parseInt(req.body.sender_id as string);
+  const receiver_id = parseInt(req.body.receiver_id as string);
+  const content = req.body.content as string;
+  const status = req.body.status as string;
+  const conversation_id = parseInt(req.body.conversation_id as string);
+  res.send(
+    await messagesService.sendMessage(
+      sender_id,
+      receiver_id,
+      content,
+      status,
+      conversation_id
     )
   );
 };
@@ -27,4 +44,6 @@ export default {
   getAllConversations,
   createConversation,
   getConversationById,
+  sendMessage,
+
 };

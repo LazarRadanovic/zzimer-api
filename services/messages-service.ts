@@ -18,8 +18,26 @@ const getConversationById = async (conversationId: number) => {
   return data;
 };
 
+const sendMessage = async (
+  sender_id: number,
+  receiver_id: number,
+  content: string,
+  status: string,
+  conversation_id: number
+) => {
+  const data = await messagesRepository.sendMessage(
+    sender_id,
+    receiver_id,
+    content,
+    status,
+    conversation_id
+  );
+  return data;
+};
+
 export default {
   getAllConversations,
   createConversation,
   getConversationById,
+  sendMessage,
 };

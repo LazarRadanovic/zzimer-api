@@ -6,6 +6,8 @@ import { FriendshipCreate } from "../model/Friendship-create-model";
 import { UsersFriends } from "../model/Friends-List";
 import { RoomateRequest } from "../model/Roommate-request";
 import { EditUser } from "../model/Edit-user";
+import { User } from "../model/User";
+import e from "express";
 
 const registerUser = async (user: any) => {
   user.password = crypto.createHash("md5").update(user.password).digest("hex");
@@ -81,6 +83,7 @@ const getUserById = async (userId: number) => {
   const data = await userRepository.getUserById(userId);
   const formattedData = data.map((row: any) => {
     return {
+      id: row.id,
       ime: row.ime,
       prezime: row.prezime,
       gmail: row.gmail,
@@ -162,6 +165,28 @@ const editUser = async (user: EditUser) => {
   return data;
 };
 
+const getAllUsers = async (id: number) => {
+  const data = await userRepository.getAllUsers(id);
+  const result: User[] = [];
+  data.forEach((element: User) => {
+    const user: User = {
+      id: Number(element.id),
+      ime: element.ime,
+      prezime: element.prezime,
+      gmail: element.gmail,
+      lokacija_cimera: element.lokacija_cimera,
+      role_id: Number(element.role_id),
+    };
+
+    result.push(user);
+  });
+  return result;
+};
+
+const deleteUser = async (id: number) => {
+  const data = await userRepository.deleteUser(id);
+  return data;
+};
 export default {
   registerUser,
   loginUser,
@@ -183,4 +208,6 @@ export default {
   declineRoommateRequest,
   changePassword,
   editUser,
+  getAllUsers,
+  deleteUser,
 };

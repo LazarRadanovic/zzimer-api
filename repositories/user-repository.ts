@@ -399,7 +399,35 @@ const declineRoommateRequest = async (idTable: number) => {
     return { success: false, msg: e };
   }
 };
+const getAllUsers = async (id: number) => {
+  try {
+    const result = await dbConnection.dbConnection.query(
+      `SELECT * FROM users WHERE id!=?`,
+      [id]
+    );
+    if (result) {
+      return result;
+    }
+  } catch (e) {
+    return false;
+  }
+};
 
+const deleteUser = async (id: number) => {
+  try {
+    const result = await dbConnection.dbConnection.query(
+      `DELETE FROM users WHERE id=?`,
+      [id]
+    );
+    if (result.affectedRows > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+};
 export default {
   registerUser,
   loginUser,
@@ -421,4 +449,6 @@ export default {
   declineRoommateRequest,
   changePassword,
   editUser,
+  getAllUsers,
+  deleteUser,
 };
