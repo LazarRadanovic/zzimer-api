@@ -13,6 +13,8 @@ messagesRoutes
 
 messagesRoutes.route("/send-message").post(messagesController.sendMessage);
 
+messagesRoutes.route("/change-status").post(messagesController.changeStatus);
+
 messagesRoutes.route("/messages").get(messagesController.getConversationById);
 export default {
   messagesRoutes,

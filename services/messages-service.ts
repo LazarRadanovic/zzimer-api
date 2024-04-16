@@ -34,10 +34,15 @@ const sendMessage = async (
   );
   return data;
 };
+const changeStatus = async (conversation_id: number) => {
+  const data = await messagesRepository.changeStatus(conversation_id);
+  return data;
+};
 
 export default {
   getAllConversations,
   createConversation,
   getConversationById,
   sendMessage,
+  changeStatus,
 };

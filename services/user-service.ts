@@ -13,10 +13,9 @@ const registerUser = async (user: any) => {
   user.password = crypto.createHash("md5").update(user.password).digest("hex");
   const result = await userRepository.registerUser(user);
   if (result.affectedRows > 0) {
-    //user je kreiran, kreiraj token za njega i posalji ga u odgovoru
     const token = jwt.sign(
       {
-        id: user.id,
+        id: result.insertId,
         ime: user.ime,
         prezime: user.prezime,
         gmail: user.gmail,

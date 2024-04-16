@@ -39,11 +39,15 @@ const sendMessage = async (req: Request, res: Response) => {
     )
   );
 };
+const changeStatus = async (req: Request, res: Response) => {
+  const conversation_id = parseInt(req.body.conversation_id);
+  res.send(await messagesService.changeStatus(conversation_id));
+};
 
 export default {
   getAllConversations,
   createConversation,
   getConversationById,
   sendMessage,
-
+  changeStatus,
 };

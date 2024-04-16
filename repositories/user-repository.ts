@@ -7,7 +7,7 @@ import { RoomateRequest } from "../model/Roommate-request";
 const registerUser = async (user: any) => {
   try {
     const result = await dbConnection.dbConnection.query(
-      `INSERT INTO users(ime,prezime,gmail,lokacija_cimera,password,role_id) VALUES(?,?,?,?,?,2)`,
+      `INSERT INTO users(id,ime,prezime,gmail,lokacija_cimera,password,role_id) VALUES(DEFAULT,?,?,?,?,?,2)`,
       [user.ime, user.prezime, user.gmail, user.lokacija_cimera, user.password]
     );
     return result;
@@ -147,8 +147,8 @@ const sendFriendRequest = async (friendRequst: FriendshipCreate) => {
 const getStatusOfFriendship = async (senderId: number, receiverId: number) => {
   try {
     const result = await dbConnection.dbConnection.query(
-      `SELECT friendships.status FROM friendships WHERE user1_id = ? AND user2_id = ?`,
-      [senderId, receiverId]
+      `SELECT friendships.status FROM friendships WHERE user1_id = ? AND user2_id = ? OR user1_id = ? AND user2_id = ?`,
+      [senderId, receiverId, receiverId, senderId]
     );
 
     if (result.length > 0) {
@@ -245,7 +245,6 @@ const loggedUserFriends = async (loggedUserId: number) => {
     const result = await dbConnection.dbConnection.query(
       `
     SELECT DISTINCT
-  
     CASE
         WHEN f.user1_id = ? THEN u2.id
         ELSE u1.id
@@ -288,7 +287,8 @@ WHERE
 const currentRoomate = async (loggedUserID: number) => {
   try {
     const result = await dbConnection.dbConnection.query(
-      `SELECT
+      `  SELECT
+      r.RequestID,
       CASE
           WHEN r.SenderID = ? THEN u_receiver.ime
           ELSE u_sender.ime
@@ -317,7 +317,7 @@ const currentRoomate = async (loggedUserID: number) => {
   INNER JOIN users u_receiver ON r.ReceiverID = u_receiver.id
   INNER JOIN estates e ON r.idEstate = e.id
   WHERE
-      (r.SenderID = ? OR r.ReceiverID =?)AND r.Status  = 'Accepted' ;
+      (r.SenderID = ? OR r.ReceiverID = ?) AND r.Status = 'Accepted'; ;
   `,
       [
         loggedUserID,

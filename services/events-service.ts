@@ -16,7 +16,12 @@ const getAllEvents = async () => {
   });
   return data;
 };
+const insertNewEvent = async (event: EventModel) => {
+  const data = await eventRepository.insertNewEvent(event);
+  return data;
+};
 
 export default {
   getAllEvents,
+  insertNewEvent,
 };

@@ -29,7 +29,12 @@ const createConversation = async (senderId: number, receiverId: number) => {
       `INSERT INTO conversation(id,user_1,user_2) VALUES (DEFAULT,?,?)`,
       [senderId, receiverId]
     );
-    return { success: true };
+
+    if (result.affectedRows > 0) {
+      return { success: true, conversationId: result.insertId };
+    } else {
+      return { success: false };
+    }
   } catch (e) {
     return { success: false };
   }
@@ -82,9 +87,24 @@ const sendMessage = async (
   }
 };
 
+const changeStatus = async (conversation_id: number) => {
+  try {
+    const data = await dbConnection.dbConnection.query(
+      `UPDATE messages SET status="seen" WHERE conversation_id=? `,
+      [conversation_id]
+    );
+    if (data) {
+      return true;
+    }
+  } catch (e) {
+    return false;
+  }
+};
+
 export default {
   getAllConversations,
   createConversation,
   getConversationById,
   sendMessage,
+  changeStatus,
 };
