@@ -101,10 +101,16 @@ const deleteEstate = async (id: number) => {
   return data;
 };
 
+const countLikesByEstateId = async (idEstate: number) => {
+  const data = await estateRepository.countLikesByEstateId(idEstate);
+  return data;
+};
+
 export default {
   getAllEstates,
   getEstateById,
   getEstateByLocation,
   getAllTowns,
   deleteEstate,
+  countLikesByEstateId,
 };

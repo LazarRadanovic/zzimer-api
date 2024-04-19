@@ -12,6 +12,10 @@ esatesRouters
   .route("/estates/location/:town")
   .get(estateController.getEstateByLocation);
 
+esatesRouters
+  .route("/count-likes/:id")
+  .get(estateController.countLikesByEstateId);
+
 esatesRouters.route("/delete-esate/:id").delete(estateController.deleteEstate);
 
 export default { esatesRouters };

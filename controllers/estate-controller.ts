@@ -19,10 +19,18 @@ const getAllTowns = async (req: Request, res: Response) => {
 const deleteEstate = async (req: Request, res: Response) => {
   res.send(await estateService.deleteEstate(parseInt(req.params["id"])));
 };
+const countLikesByEstateId = async (req: Request, res: Response) => {
+  console.log(parseInt(req.params["id"]));
+
+  res.send(
+    await estateService.countLikesByEstateId(parseInt(req.params["id"]))
+  );
+};
 export default {
   getAllEstates,
   getEstateById,
   getEstateByLocation,
   getAllTowns,
   deleteEstate,
+  countLikesByEstateId,
 };

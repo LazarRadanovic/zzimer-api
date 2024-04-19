@@ -73,10 +73,34 @@ const deleteEstate = async (id: number) => {
   }
 };
 
+const countLikesByEstateId = async (idEstate: number) => {
+  try {
+    let broj_lajkova = 0;
+    const data = await dbConnection.dbConnection.query(
+      `
+    SELECT COUNT(*) AS broj_lajkova
+    FROM user_likes
+    WHERE idEstate = ?;`,
+      [idEstate]
+    );
+    console.log(data);
+
+    if (data) {
+      broj_lajkova = data[0].broj_lajkova;
+      return broj_lajkova;
+    } else {
+      return broj_lajkova;
+    }
+  } catch (e: any) {
+    return { msg: e.msg };
+  }
+};
+
 export default {
   getAllEstates,
   getEstateById,
   getEstateByLocation,
   getAllTowns,
   deleteEstate,
+  countLikesByEstateId,
 };
